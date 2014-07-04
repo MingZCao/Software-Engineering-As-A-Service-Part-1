@@ -1,18 +1,7 @@
-Enhance RP in the following way:
+OK, so the user can now click on the “Movie Title” or “Release Date” headings and see movies sorted by those columns, and can additionally use the checkboxes to restrict the listing to movies with certain ratings only. And we have preserved RESTfulness, because the URI itself always contains the parameters that will control sorting and filtering.
 
-On the list of all movies page, the column headings for ‘Movie Title’ and ‘Release Date’ for a movie should be clickable links. Clicking one of them should cause the list to be reloaded but sorted in ascending order on that column. For example, clicking the ‘release date’ column heading should redisplay the list of movies with the earliest-released movies first; clicking the ‘title’ field should list the movies alphabetically by title. (For movies whose names begin with non-letters, the sort order should match the behavior of String#<=>.)
+The last step is to remember these settings. That is, if the user has selected any combination of column sorting and restrict-by-rating constraints, and then the user clicks to see the details of one of the movies (for example), when she clicks the Back to Movie List on the detail page, the movie listing should “remember” the user’s sorting and filtering settings from before.
 
-IMPORTANT for grading purposes:
+(Clicking away from the list to see the details of a movie is only one example; the settings should be remembered regardless what actions the user takes, so that any time she visits the index page, the settings are correctly reinstated.)
 
-The link (that is, the <a> tag) for sorting by ‘title’ should have the HTML element id title_header.
-The link for sorting by ‘release date’ should have the HTML element id release_date_header.
-The table containing the list of movies should have the HTML element id movies (this has already been set for you by existing code, if you use the version of RP included in this repo).
-When the listing page is redisplayed with sorting-on-a-column enabled, the column header that was selected for sorting should appear with a yellow background, as shown below. You should do this by setting controller variables that are used to conditionally set the CSS class of the appropriate table heading to hilite, and pasting this simple CSS into RottenPotatoes’ app/assets/stylesheets/application.css file:
-
-css
-table#movies th.hilite {
-  background-color: yellow;
-}
-
-The result should look something like this:
-
+The best way to do the “remembering” will be to use the session[] hash. The session is like the flash[], except that once you set something in the session[] it is remembered “forever” until you nuke the session with session.clear or selectively delete things from it with session.delete(:some_key). That way, in the index method, you can selectively apply the settings from the session[] even if the incoming URI doesn’t have the appropriate params[] set.
