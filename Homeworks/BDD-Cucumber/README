@@ -1,0 +1,4 @@
+To submit the code for your assignment, please submit a .tar.gz compressed archive file containing just your "features" directory. The command for doing this in a UNIX environment is:
+tar czf features.tar.gz features/ 
+
+Please make sure that the "features" directory is contained in the archive. For example, unarchiving your submission should create a directory named "features" in the current working directory. It should not extract all your features directly into the current working directory.
